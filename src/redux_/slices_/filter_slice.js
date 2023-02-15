@@ -29,22 +29,16 @@ const filter_slice = createSlice({
       state.current_page = Number(action.payload.currentPage);
       state.category_id = Number(action.payload.categoryId);
     },
-    change_search: (state, action) => {
+    set_search_value: (state, action) => {
       state.search_value = action.payload;
-    },
-    clear_search: (state) => {
-      state.search_value = '';
     },
   },
 });
 
-export const {
-  set_category_id,
-  set_sort,
-  set_current_page,
-  set_filters,
-  change_search,
-  clear_search,
-} = filter_slice.actions;
+export const select_sort = (state) => state.filter.sort_;
+export const select_filter = (state) => state.filter;
+
+export const { set_category_id, set_sort, set_current_page, set_filters, set_search_value } =
+  filter_slice.actions;
 
 export default filter_slice.reducer;

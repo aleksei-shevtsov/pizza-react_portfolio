@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { set_sort } from '../redux_/slices_/filter_slice';
+import { select_sort, set_sort } from '../redux_/slices_/filter_slice';
 
 export const sortList = [
   { name: 'популярности (DESC)', sortProperty: 'rating' },
@@ -14,7 +14,7 @@ export const sortList = [
 
 export const Sort = () => {
   const dispatch = useDispatch();
-  const sort_ = useSelector((state) => state.filter.sort_);
+  const sort_ = useSelector(select_sort);
   const sortRef = React.useRef();
 
   const [isVisible, setIsVisible] = React.useState(false);
@@ -28,7 +28,6 @@ export const Sort = () => {
     const handleClickOutside = (event) => {
       if (!event.composedPath().includes(sortRef.current)) {
         setIsVisible(false);
-        console.log('out');
       }
     };
 

@@ -6,7 +6,6 @@ export const fetch_pizzas = createAsyncThunk('pizza/fetch_pizzas_status', async 
   const { data } = await axios.get(
     `https://63db9a41a3ac95cec5a5c8c6.mockapi.io/items?page=${current_page}&limit=4&${category}&sortBy=${sortBy}${order}${search}`,
   );
-
   return data;
 });
 
@@ -25,8 +24,6 @@ const pizza_slice = createSlice({
   },
   extraReducers: {
     [fetch_pizzas.pending]: (state) => {
-      console.log('1');
-
       state.status_ = 'loading';
       state.items_ = [];
     },
@@ -40,6 +37,8 @@ const pizza_slice = createSlice({
     },
   },
 });
+
+export const select_pizza_data = (state) => state.pizza;
 
 export const { set_items } = pizza_slice.actions;
 
