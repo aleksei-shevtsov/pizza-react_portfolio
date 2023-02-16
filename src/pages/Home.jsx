@@ -7,7 +7,7 @@ import {
   set_current_page,
   set_filters,
 } from '../redux_/slices_/filter_slice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Categories from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
@@ -75,7 +75,11 @@ export const Home = () => {
     isSearch.current = false;
   }, [category_id, sort_.sortProperty, search_value, current_page]);
 
-  const pizzas = items_.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items_.map((obj) => (
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ));
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
