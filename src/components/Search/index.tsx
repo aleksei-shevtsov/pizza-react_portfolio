@@ -6,19 +6,12 @@ import { set_search_value } from '../../redux_/slices_/filter_slice';
 
 import styles from './Search.module.scss';
 
-export const Search = () => {
+const Search: React.FC = () => {
   const dispatch = useDispatch();
-  const [value, setValue] = React.useState('');
-  const inputRef = React.useRef();
+  const [value, setValue] = React.useState<string>('');
+  const inputRef = React.useRef<HTMLInputElement>(null);
 
-  const updateSearchValue = React.useCallback(
-    debounce((str) => {
-      dispatch(set_search_value(str));
-    }, 800),
-    [],
-  );
-
-  const onChangeInput = (event) => {
+  const onChangeInput = (event: any) => {
     setValue(event.target.value);
     updateSearchValue(event.target.value);
   };
@@ -26,9 +19,15 @@ export const Search = () => {
   const onClear = () => {
     dispatch(set_search_value(''));
     setValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
+  const updateSearchValue = React.useCallback(
+    debounce((str: string) => {
+      dispatch(set_search_value(str));
+    }, 800),
+    [],
+  );
   return (
     <div className={styles.root}>
       <svg className={styles.searchIcon} viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
