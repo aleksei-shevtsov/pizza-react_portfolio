@@ -1,11 +1,11 @@
 import React from 'react';
 
 type CategoriesProps = {
-  valueId: number;
-  setValueId: any;
+  categoryId: number;
+  setCategoryId: (index: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = ({ valueId, setValueId }) => {
+const Categories: React.FC<CategoriesProps> = ({ categoryId, setCategoryId }) => {
   const CATEGORIES = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
   return (
@@ -14,8 +14,8 @@ const Categories: React.FC<CategoriesProps> = ({ valueId, setValueId }) => {
         {CATEGORIES.map((category, index) => (
           <li
             key={category}
-            onClick={() => setValueId(index)}
-            className={valueId === index ? 'active' : ''}>
+            onClick={() => setCategoryId(index)}
+            className={categoryId === index ? 'active' : ''}>
             {category}
           </li>
         ))}

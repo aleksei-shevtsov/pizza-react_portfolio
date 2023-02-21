@@ -1,106 +1,123 @@
 import React from 'react';
 import qs from 'qs';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
-  select_filter,
-  set_category_id,
-  set_current_page,
-  set_filters,
-} from '../redux_/slices_/filter_slice';
-import { Link, useNavigate } from 'react-router-dom';
+  FilterSliceState,
+  selectFilter,
+  setCategoryId,
+  setCurrentPage,
+  setFilters,
+} from '../redux/slices/filterSlice';
+import { useNavigate } from 'react-router-dom';
 import Categories from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import PizzaBlock from '../components/PizzaBlock/index';
 import Pagination from '../components/Pagination';
-import { fetch_pizzas, select_pizza_data } from '../redux_/slices_/pizza_slice';
+import { fetchPizzas, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { useAppDispatch } from '../redux/store';
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const isSearch = React.useRef(false);
   const isMounted = React.useRef(false);
 
-  const { items_, status_ } = useSelector(select_pizza_data);
-  const { sort_, category_id, current_page, search_value } = useSelector(select_filter);
+  const { items, status } = useSelector(selectPizzaData);
+  const { sort, categoryId, currentPage, searchValue } = useSelector(selectFilter);
 
   const onChangeCategory = (idx: number) => {
-    dispatch(set_category_id(idx));
+    dispatch(setCategoryId(idx));
   };
 
-  const onChangePage = (page: number) => dispatch(set_current_page(page));
+  const onChangePage = (page: number) => dispatch(setCurrentPage(page));
 
   const getPizzas = async () => {
-    const order = sort_.sortProperty.includes('+') ? '&order=asc' : '&order=desc';
-    const category = category_id > 0 ? `category=${category_id}` : '';
-    const sortBy = sort_.sortProperty.replace('+', '');
-    const search = search_value ? `&search=${search_value}` : '';
+    const order = sort.sortProperty.includes('+') ? '&order=asc' : '&order=desc';
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const sortBy = sort.sortProperty.replace('+', '');
+    const search = searchValue ? `&search=${searchValue}` : '';
     dispatch(
-      // @ts-ignore
-      fetch_pizzas({
+      fetchPizzas({
         order,
         category,
         sortBy,
         search,
-        current_page,
+        currentPage: String(currentPage),
       }),
     );
 
     window.scrollTo(0, 0);
   };
 
-  React.useEffect(() => {}, [category_id, sort_.sortProperty, search_value, current_page]);
-
   // если был первый рендер и изменили параметры, вшивай в URL параметры
-  React.useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortProperty: sort_.sortProperty,
-        categoryId: category_id,
-        currentPage: current_page,
-      });
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
-  }, [category_id, sort_.sortProperty, current_page]);
+  // React.useEffect(() => {
+  //   if (isMounted.current) {
+  //     const queryString = qs.stringify({
+  //       sortProperty: sort.sortProperty,
+  //       categoryId: categoryId > 0 ? categoryId : null,
+  //       currentPage: currentPage,
+  //     });
+  //     navigate(`?${queryString}`);
+  //   }
+  //   if (!window.location.search) {
+  //     dispatch(fetchPizzas({} as SearchPizzaParams));
+  //   }
+  //   isMounted.current = true;
+  // }, [categoryId, sort.sortProperty, currentPage]);
 
+  // -------------------
   React.useEffect(() => {
     getPizzas();
-  }, [category_id, sort_.sortProperty, search_value, current_page]);
+  }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
   // Если был первый рендер, то запрашиваем пиццы
-  React.useEffect(() => {
-    if (!isSearch.current) {
-      getPizzas();
-    }
-    isSearch.current = false;
-  }, [category_id, sort_.sortProperty, search_value, current_page]);
+  // React.useEffect(() => {
+  //   if (!isSearch.current) {
+  //     getPizzas();
+  //   }
+  //   isSearch.current = false;
+  // }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const pizzas = items_.map((obj: any) => (
-    <Link key={obj.id} to={`/pizza/${obj.id}`}>
-      <PizzaBlock {...obj} />
-    </Link>
-  ));
+  // React.useEffect(() => {
+  //   if (window.location.search) {
+  //     const params = qs.parse(window.location.search.substring(1)) as unknown as SearchPizzaParams;
+  //     const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
+
+  //     dispatch(
+  //       setFilters({
+  //         searchValue: params.search,
+  //         categoryId: Number(params.category),
+  //         currentPage: Number(params.currentPage),
+  //         sort: sort || sortList[0],
+  //       }),
+  //     );
+  //   }
+
+  //   isMounted.current = true;
+  // }, [categoryId, sort.sortProperty, currentPage]);
+
+  const pizzas = items.map((obj: any) => <PizzaBlock {...obj} />);
 
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories valueId={category_id} setValueId={onChangeCategory} />
+        <Categories categoryId={categoryId} setCategoryId={onChangeCategory} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      {status_ === 'error' ? (
+      {status === 'error' ? (
         <div className="content__error-info">
           <h2>Произошла ошибка</h2>
           <p>Не удалось получить данные</p>
         </div>
       ) : (
-        <div className="content__items">{status_ === 'loading' ? skeletons : pizzas}</div>
+        <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       )}
 
-      <Pagination currentPage={current_page} onChangePage={onChangePage} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
 };

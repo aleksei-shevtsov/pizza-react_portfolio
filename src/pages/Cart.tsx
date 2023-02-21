@@ -1,23 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clear_items, select_cart } from '../redux_/slices_/cart_slice';
+import { clearItems, selectCart } from '../redux/slices/cartSlice';
 import CartItem from '../components/CartItem';
 import CartEmpty from '../components/CartEmpty';
 
 const Cart: React.FC = () => {
   const dispatch = useDispatch();
-  const { total_price, items_ } = useSelector(select_cart);
+  const { totalPrice, items } = useSelector(selectCart);
 
-  const totalCount = items_.reduce((sum: number, item: any) => sum + item.count, 0);
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
   const onClickClear = () => {
     if (window.confirm('Очистить корзину?')) {
-      dispatch(clear_items());
+      dispatch(clearItems());
     }
   };
 
-  if (!total_price) {
+  if (!totalPrice) {
     return <CartEmpty />;
   }
 
@@ -90,7 +90,7 @@ const Cart: React.FC = () => {
           </div>
         </div>
         <div className="content__items">
-          {items_.map((item: any) => (
+          {items.map((item: any) => (
             <CartItem key={item.id} {...item} />
           ))}
         </div>
@@ -102,7 +102,7 @@ const Cart: React.FC = () => {
             </span>
             <span>
               {' '}
-              Сумма заказа: <b>{total_price} ₽</b>{' '}
+              Сумма заказа: <b>{totalPrice} ₽</b>{' '}
             </span>
           </div>
           <div className="cart__bottom-buttons">
