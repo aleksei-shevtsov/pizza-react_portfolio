@@ -5,9 +5,9 @@ type CategoriesProps = {
   setCategoryId: (index: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = ({ categoryId, setCategoryId }) => {
-  const CATEGORIES = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
+const CATEGORIES = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
+const Categories: React.FC<CategoriesProps> = React.memo(({ categoryId, setCategoryId }) => {
   return (
     <div className="categories">
       <ul>
@@ -22,6 +22,6 @@ const Categories: React.FC<CategoriesProps> = ({ categoryId, setCategoryId }) =>
       </ul>
     </div>
   );
-};
+});
 
 export default Categories;
