@@ -18,7 +18,7 @@ const FullPizza: React.FC = () => {
         const { data } = await axios.get('https://63db9a41a3ac95cec5a5c8c6.mockapi.io/items/' + id);
         setPizza(data);
       } catch (error) {
-        alert('Ошибка при получении товара!');
+        alert('Error while receiving the goods!');
         navigate('/');
       }
     }
@@ -26,17 +26,17 @@ const FullPizza: React.FC = () => {
   }, []);
 
   if (!pizza) {
-    return <div className="container">Загрузка.....</div>;
+    return <div className="container">Loading...</div>;
   }
 
   return (
     <div className="container">
-      <img src={pizza.imageUrl} alt="" />
+      <img src={pizza.imageUrl} alt="Pizza Image" />
       <h2>{pizza.title}</h2>
-      <h3>{pizza.price} BYN</h3>
+      <h3>{pizza.price} USD</h3>
       <Link to="/asasss">
         <button className="button button--outline button--add">
-          <span>Назад</span>
+          <span>Back</span>
         </button>
       </Link>
     </div>

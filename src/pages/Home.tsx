@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { Categories, Sort, Skeleton, PizzaBlock, Pagination } from '../components';
-
 import { useAppDispatch } from '../redux/store';
 import { selectFilter } from '../redux/filter/selectors';
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/filter/slice';
@@ -97,11 +96,11 @@ const Home: React.FC = () => {
         <Categories categoryId={categoryId} setCategoryId={onChangeCategory} />
         <Sort value={sortBy} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">All pizzas</h2>
       {status === 'error' ? (
         <div className="content__error-info">
-          <h2>Произошла ошибка</h2>
-          <p>Не удалось получить данные</p>
+          <h2>An error has occurred</h2>
+          <p>Failed to get data</p>
         </div>
       ) : (
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>

@@ -5,16 +5,16 @@ import cartEmptyImg from '../assets/img/empty-cart.png';
 const CartEmpty: React.FC = () => (
   <div className="cart cart__empty">
     <h2>
-      Корзина пустая <span className="icon">😕</span>
+      Cart is empty <span className="icon">😕</span>
     </h2>
     <p>
-      Вероятней всего, вы не заказывали ещё пиццу.
+    Most likely, you have not ordered pizza yet.
       <br />
-      Для того, чтобы заказать пиццу, перейди на главную страницу.
+      In order to order pizza, go to the Main page.
     </p>
     <img src={cartEmptyImg} alt="Empty cart" />
     <Link to="/" className="button button__black">
-      <span>Вернуться назад</span>
+      <span>Return</span>
     </Link>
   </div>
 );

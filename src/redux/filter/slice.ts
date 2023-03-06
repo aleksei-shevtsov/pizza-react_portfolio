@@ -5,7 +5,7 @@ const initialState: FilterSliceState = {
   categoryId: 0,
   currentPage: 1,
   sortBy: {
-    name: 'популярности',
+    name: 'popularity',
     sortProperty: SortPropertyEnum.RATING_DESC,
   },
   searchValue: '',
@@ -31,7 +31,7 @@ const filterSlice = createSlice({
         state.categoryId = action.payload.categoryId;
       } else {
         state.sortBy = {
-          name: 'популярности',
+          name: 'popularity',
           sortProperty: SortPropertyEnum.RATING_DESC,
         };
         state.currentPage = 1;
