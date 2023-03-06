@@ -11,14 +11,16 @@ const Categories: React.FC<CategoriesProps> = React.memo(({ categoryId, setCateg
   return (
     <div className="categories">
       <ul>
-        {CATEGORIES.map((category, index) => (
-          <li
-            key={category}
-            onClick={() => setCategoryId(index)}
-            className={categoryId === index ? 'active' : ''}>
-            {category}
-          </li>
-        ))}
+        {CATEGORIES.map((category, index) => {
+          return (
+            <li
+              key={category}
+              onClick={() => setCategoryId(index)}
+              className={categoryId === index ? 'active' : ''}>
+              {category}
+            </li>
+          );
+        })}
       </ul>
     </div>
   );

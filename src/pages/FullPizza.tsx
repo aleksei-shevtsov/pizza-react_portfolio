@@ -1,6 +1,6 @@
-import axios from 'axios';
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = React.useState<{
@@ -16,7 +16,6 @@ const FullPizza: React.FC = () => {
     async function fetchPizza() {
       try {
         const { data } = await axios.get('https://63db9a41a3ac95cec5a5c8c6.mockapi.io/items/' + id);
-        // console.log('log', log);
         setPizza(data);
       } catch (error) {
         alert('Ошибка при получении товара!');
@@ -35,7 +34,11 @@ const FullPizza: React.FC = () => {
       <img src={pizza.imageUrl} alt="" />
       <h2>{pizza.title}</h2>
       <h3>{pizza.price} BYN</h3>
-      <p></p>
+      <Link to="/asasss">
+        <button className="button button--outline button--add">
+          <span>Назад</span>
+        </button>
+      </Link>
     </div>
   );
 };

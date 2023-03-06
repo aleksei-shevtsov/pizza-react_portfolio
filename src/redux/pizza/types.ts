@@ -22,7 +22,7 @@ export interface PizzaSliceState {
 export type SearchPizzaParams = {
   sortBy: string;
   order: string;
-  category: string;
+  categoryId: string;
   search: string;
   currentPage: string;
 };
