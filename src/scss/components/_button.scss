@@ -1,14 +1,15 @@
-@import '../variables';
+@import "../variables";
 
 .button {
   display: inline-block;
   background-color: $orange;
   border-radius: 30px;
-  padding: 10px 20px;
+  padding: 10px 10px;
   min-width: 100px;
   text-align: center;
   cursor: pointer;
-  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
+  transition: background-color $duration ease-in-out,
+    border-color $duration ease-in-out;
   border: 1px solid transparent;
   @include noselect();
 
@@ -134,6 +135,10 @@
     align-items: center;
     line-height: 23px;
     padding: 12px 25px;
+
+    :first-of-type {
+      margin-right: 8px;
+    }
 
     svg {
       margin-right: 8px;

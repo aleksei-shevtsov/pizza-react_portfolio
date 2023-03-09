@@ -6,6 +6,7 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 12px 20px;
   padding-left: 50px;
+  padding-right: 43px;
   width: 300px;
   border-radius: 10px;
   font-size: 16px;
@@ -36,5 +37,20 @@
   &:hover {
     opacity: 0.8;
     cursor: pointer;
+  }
+}
+
+@media (max-width: 1060px) {
+  .input {
+    width: 200px;
+    padding: 12px 40px;
+  }
+
+  .searchIcon {
+    left: 10px;
+  }
+
+  .clearIcon {
+    right: 10px;
   }
 }

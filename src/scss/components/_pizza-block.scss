@@ -1,8 +1,14 @@
-@import '../variables';
+@import "../variables";
 
 .pizza-block {
   width: 280px;
   text-align: center;
+
+  @media (max-width: 730px) {
+    margin: 0 auto;
+    margin-bottom: 35px;
+  }
+
   margin-bottom: 65px;
 
   &-wrapper {
@@ -11,6 +17,7 @@
   }
 
   &__image {
+    margin-left: 5px;
     width: 260px;
   }
 
