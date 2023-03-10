@@ -67,8 +67,16 @@ const PizzaBlock: React.FC<PizzaBlock> = ({
             {types.map((type) => (
               <li
                 key={type}
-                onClick={() => setActiveTypeItem(type)}
-                className={activeTypeItem === type ? "active" : ""}
+                onClick={() => {
+                  return setActiveTypeItem(type);
+                }}
+                className={
+                  activeTypeItem === type
+                    ? "active"
+                    : types.length === 1
+                    ? "active"
+                    : ""
+                }
               >
                 {typeNames[type]}
               </li>
