@@ -3,8 +3,14 @@
 
 @import "./components/all";
 
+html,
+body {
+  overflow-x: hidden;
+}
+
 body {
   background-color: $background;
+  width: 100%;
 }
 
 .wrapper {
@@ -17,7 +23,7 @@ body {
 
   @media (max-width: 645px) {
     width: calc(100vw - 30px);
-    margin: 15px auto;
+    // margin: 15px auto;
   }
 }
 
@@ -466,21 +472,35 @@ body {
   }
 
   &__empty {
-    margin: 80px auto;
-    width: 620px;
+    // margin: 80px auto;
     text-align: center;
+    font-size: 16px;
+
+    @media (max-width: 730px) {
+      font-size: 13px;
+    }
+
+    @media (max-width: 540px) {
+      font-size: 10px;
+    }
 
     h2 {
-      font-size: 36px;
+      font-size: 2em;
       font-weight: 700;
       margin-bottom: 15px;
     }
 
     p {
-      font-size: 20px;
+      font-size: 1.5em;
       line-height: 145.4%;
       letter-spacing: 0.01em;
       color: #777777;
+      width: 20em;
+      margin: 0 auto;
+
+      @media (max-width: 540px) {
+        width: 16em;
+      }
     }
 
     .icon {
@@ -490,16 +510,16 @@ body {
 
     img {
       display: block;
-      width: 300px;
+      width: 18.7em;
       margin: 45px auto 60px;
     }
 
     .button__black {
       padding: 12px 0 14px;
-      width: 230px;
+      width: 14.4em;
       margin: 0 auto;
       font-weight: 600;
-      font-size: 18px;
+      font-size: 1em;
     }
   }
 }
